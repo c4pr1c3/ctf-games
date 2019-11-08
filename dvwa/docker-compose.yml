@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  dvwa:
+    image: vulnerables/web-dvwa
+    container_name: "dvwa"
+    volumes:
+      - ./wget.sh:/tmp/wget.sh
+    healthcheck:
+      test: ["CMD", "bash", "/tmp/wget.sh", "http://127.0.0.1"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "127.0.0.1:8086:80"
