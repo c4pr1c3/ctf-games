@@ -12,7 +12,7 @@ services:
     ports:
       - "127.0.0.1:8087:8080"
   webgoat8:
-    image: webgoat/webgoat-8.0
+    image: webgoat/webgoat-8.0:v8.0.0.M25
     container_name: "webgoat8"
     user: webgoat
     volumes:
