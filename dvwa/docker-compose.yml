@@ -6,6 +6,7 @@ services:
     container_name: "dvwa"
     volumes:
       - ./wget.sh:/tmp/wget.sh
+      - ./adminer-4.8.1.php:/var/www/html/adminer.php
     healthcheck:
       test: ["CMD", "bash", "/tmp/wget.sh", "http://127.0.0.1"]
       interval: 10s
