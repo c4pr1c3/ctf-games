@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  vul-focus:
+    env_file: vulfocus.env
+    image: vulfocus/vulfocus:latest
+    ports:
+      - "80:80"
+    environment:
+      - VUL_IP
+      - EMAIL_HOST
+      - EMAIL_HOST_USER
+      - EMAIL_HOST_PASSWORD
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
