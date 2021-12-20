@@ -12,7 +12,7 @@ sudo su -
 
 # 使用中科大 Docker Hub 镜像源
 cat <<EOF > /etc/docker/daemon.json
-heredoc> {
+{
   "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
 }
 EOF
