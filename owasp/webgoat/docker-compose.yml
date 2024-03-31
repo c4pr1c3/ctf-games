@@ -55,3 +55,17 @@ services:
       - POSTGRES_PASSWORD=webgoat
       - POSTGRES_USER=webgoat
       - POSTGRES_DB=webgoat
+  webgoat_latest:
+    image: webgoat/webgoat
+    container_name: "webgoat_latest"
+    user: webgoat
+    volumes:
+      - ./wget.sh:/tmp/wget.sh
+    healthcheck:
+      test: ["CMD", "bash", "/tmp/wget.sh", "http://127.0.0.1:8080/WebGoat/login"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "127.0.0.1:8081:8080"
+      - "127.0.0.1:9091:9090"
