@@ -1,7 +1,13 @@
 ## 纯净版 Kali 初始化基础环境
 
 ```bash
-sudo apt update && sudo apt install -y docker.io docker-compose jq
+# ref: https://www.kali.org/docs/containers/installing-docker-on-kali/#installing-docker-ce-on-kali-linux
+# 注意以下内容复制粘贴自上述 ref 链接，版本若有更新，请优先参考 ref 链接
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" | sudo tee /etc/apt/sources.list.d/docker.list 
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io jq
 
 # 将当前用户添加到 docker 用户组，免 sudo 执行 docker 相关指令
 # 重新登录 shell 生效
@@ -15,9 +21,8 @@ sudo su -
 cat <<EOF > /etc/docker/daemon.json
 {
   "registry-mirrors": [
-    "https://docker.mirrors.sjtug.sjtu.edu.cn/",
-    "https://mirror.baidubce.com/",
-    "https://dockerproxy.com/"
+    "https://docker.chenby.cn",
+    "https://dockerhub.icu"
   ]
 }
 EOF
