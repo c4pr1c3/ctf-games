@@ -44,4 +44,9 @@ EMAIL_HOST_USER=${EMAIL_HOST_USER}
 EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
 EOF
 
-docker-compose up -d
+docker compose up -d
+
+if [[ $? -ne 0 ]];then
+    echo "docker compose up failed, try docker-compose up -d"
+    docker-compose up -d
+fi
