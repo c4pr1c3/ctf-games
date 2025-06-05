@@ -55,11 +55,11 @@ docker pull vulfocus/vulfocus:latest
 
 由于上游 `fofapro/vulfocus` 因不明原因下架了所有场景，感谢 [@Xuyan-cmd](https://github.com/Xuyan-cmd) 给 [B站视频教程：网络安全(2021) 综合实验](https://www.bilibili.com/video/BV1p3411x7da) 手动打了一个补丁：按照视频教程里使用的网络环境，手动重建了靶标网络场景。
 
-1. 在 `vulfocus` 的本地管理页面的左侧导航菜单里依次找到并点击：`场景管理`、`网卡管理`。
-2. 在主窗口中点击 `添加` ，填写 `网卡名称` 为 `dmz` ，子网 `192.170.84.0/24` ，网关 `192.170.84.1` ，提交保存网卡 。再如法添加第 2 个网卡，信息分别为 `核心网络`，子网 `192.169.85.0/24`，网关 `192.169.85.1` 。当然，这些 IP 地址可以根据自己的需求进行随意调整。
-3. 在 `vulfocus` 的本地管理页面的左侧导航菜单里依次找到并点击：`场景管理`、`环境编排管理`。
-4. 在主窗口中点击 `添加场景` ，选择 `创建编排模式` 。将容器、网卡等元素拖拽到画布中，构建场景。注意，场景中的元素之间的连线是必须的，否则无法保存。
-5. 返回 `环境编排管理` 页面，点击刚才创建成功的场景缩略图上的 `发布` 按钮。
+1. 在 `vulfocus` 的本地管理页面的左侧导航菜单里依次找到并点击：`场景管理`、`环境编排管理`。
+2. 在主窗口中点击 `添加场景` ，选择 `创建编排模式` 。上传 `DMZ.zip` 场景文件，点击 `保存` 。
+3. 查看并使用 `download_dmz_imgs.sh` 下载 `DMZ.zip` 场景中使用到的镜像。
+4. 在 `镜像管理` 页面，通过【添加】按钮，手动将 `DMZ.zip` 场景中使用到的镜像导入到 `vulfocus` 的本地镜像数据库中，确保 `DMZ.zip` 中用到的镜像的状态都是 **已导入** 。
+5. 返回 `环境编排管理` 页面，点击刚才创建成功的场景缩略图上的 `发布` 按钮。此时，系统可能会提示 `正在下载`，稍后再返回该页面查看场景状态，直到状态变为 `已发布` 。如果状态一直是 `正在下载` ，请检查是否有镜像未导入成功。
 6. 发布成功后，通过左侧导航菜单里的 `场景` 找到刚才发布成功的场景缩略图，点击后进入场景详情页面，点击 `启动场景` 。
 7. 注意访问地址不是场景详情页面上显示的，请自行替换为 `vulfocus管理页面的访问IP:场景详情页面上显示的端口号` 。
 
@@ -134,4 +134,11 @@ sudo systemctl restart docker
 
 除此之外，如果使用 `docker.io` 可能会遇到容器启动报错 `IP 地址分配冲突` 错误，请卸载 `docker.io` ，改用 `docker-ce` 。具体安装方法请参考 [Installing Docker on Kali Linux](https://www.kali.org/docs/containers/installing-docker-on-kali/#installing-docker-ce-on-kali-linux)  里的 `Installing docker-ce on Kali Linux` 一节安装方法。
 
+3. 如果 `docker-compose.yml` 中定义的 `vulfocus` 镜像无法访问或无法下载。
+
+请 `git clone https://github.com/c4pr1c3/vulfocus.git` 到本地，进入 `vulfocus` 目录，执行以下命令：
+
+```bash
+docker build -t c4pr1c3/vulfocus:v0.3 .
+```
 

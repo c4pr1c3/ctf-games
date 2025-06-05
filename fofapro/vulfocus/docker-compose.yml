@@ -3,7 +3,7 @@ version: '3'
 services:
   vul-focus:
     env_file: vulfocus.env
-    image: vulfocus/vulfocus:latest
+    image: c4pr1c3/vulfocus:v0.3
     ports:
       - "80:80"
     environment:
